@@ -11,6 +11,7 @@ package main
 
 import "fmt"
 
+// solution 1
 func numIdenticalPairs(nums []int) int {
 	// init result
 	total := 0
@@ -31,6 +32,37 @@ func numIdenticalPairs(nums []int) int {
 	return total
 }
 
+// solution 2
+
+/*
+1 -> 0 good
+2 -> 1 good
+3 -> 3 good
+4 -> 6 good
+5 -> 10 good
+
+*/
+
+func numIdenticalPairs2(nums []int) int {
+	//init result
+	total := 0
+	// map to save num: number of good pair
+	countGoodPair := make(map[int]int)
+
+	for _, v := range nums {
+		if num, ok := countGoodPair[v]; ok {
+			// total = current total + num of this number appears
+			total += num
+			countGoodPair[v]++
+		} else {
+			// set first value num found
+			countGoodPair[v] = 1
+		}
+	}
+
+	return total
+}
+
 func main() {
-	fmt.Println(numIdenticalPairs([]int{1, 2, 3}))
+	fmt.Println(numIdenticalPairs2([]int{1, 2, 3, 1, 1, 3, 1}))
 }
